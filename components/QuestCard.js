@@ -32,7 +32,7 @@ export default function QuestCard({
           <Button
             color={"orange"}
             title="Start Quest"
-            onPress={() => navigation.navigate("QuestDetails")}
+            onPress={() => navigation.navigate("Scanner")}
           />
         )}
       </View>
