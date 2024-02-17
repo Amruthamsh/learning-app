@@ -9,6 +9,7 @@ export default function QuestCard({
   objectives,
   completion_status,
   points_earned,
+  screen,
 }) {
   const navigation = useNavigation();
   return (
@@ -32,7 +33,7 @@ export default function QuestCard({
           <Button
             color={"orange"}
             title="Start Quest"
-            onPress={() => navigation.navigate("Scanner")}
+            onPress={() => navigation.navigate(screen)}
           />
         )}
       </View>

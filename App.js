@@ -6,10 +6,11 @@ import QuestDetails from "./screens/QuestDetails";
 import LoadingScreen from "./screens/LoadingScreen";
 import Login from "./screens/LoginScreen";
 import CreateProfile from "./screens/CreateProfile";
+import ReadingAdventures from "./screens/ReadingAdventures";
+import SupplyChainStory from "./screens/SupplyChainStory";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { FIREBASE_AUTH } from "./FirebaseConfig";
-import Scanner from "./screens/Scanner";
 
 const Stack = createNativeStackNavigator();
 const InsideStack = createNativeStackNavigator();
@@ -20,7 +21,14 @@ function InsideLayout() {
       <InsideStack.Screen name="Home" component={HomeScreen} />
       <InsideStack.Screen name="Quests" component={AllQuests} />
       <InsideStack.Screen name="QuestDetails" component={QuestDetails} />
-      <InsideStack.Screen name="Scanner" component={Scanner} />
+      <InsideStack.Screen
+        name="ReadingAdventures"
+        component={ReadingAdventures}
+      />
+      <InsideStack.Screen
+        name="SupplyChainStory"
+        component={SupplyChainStory}
+      />
     </InsideStack.Navigator>
   );
 }

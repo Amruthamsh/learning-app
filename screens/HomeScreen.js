@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   Button,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import { FIREBASE_AUTH } from "../FirebaseConfig";
 import { getDatabase, ref, onValue } from "firebase/database";
@@ -35,7 +36,6 @@ export default function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate("Quests")}
       />
       <Text>Badges Earned: share on social media!</Text>
-      <Text>Skills Acquired:</Text>
       <Text>Lessons Learnt:</Text>
       <Button title="Logout" onPress={() => FIREBASE_AUTH.signOut()} />
     </SafeAreaView>
