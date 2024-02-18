@@ -1,12 +1,12 @@
 import { StyleSheet, View, SafeAreaView, Text } from "react-native";
-import DetectText from "../components/Vision";
+import ImageToStory from "../components/ImageToStory";
 import { useState } from "react";
 
 export default function SupplyChainStory() {
   return (
-    <View>
-      <Text>Source to Shelf!</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ImageToStory />
+    </SafeAreaView>
   );
 }
 

@@ -1,11 +1,11 @@
 import { StyleSheet, View, SafeAreaView } from "react-native";
-import DetectText from "../components/Vision";
+import ImageToQuiz from "../components/ImageToQuiz";
 import { useState } from "react";
 
 export default function ReadingAdventures() {
   return (
     <SafeAreaView style={styles.container}>
-      <DetectText />
+      <ImageToQuiz />
     </SafeAreaView>
   );
 }

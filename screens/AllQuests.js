@@ -97,7 +97,6 @@ export default function AllQuests() {
       <ScrollView>
         <QuestCard {...ReadingAdventures} />
         <QuestCard {...SupplyChainStory} />
-        <QuestCard {...HistoricalLocation} />
       </ScrollView>
     </SafeAreaView>
   );

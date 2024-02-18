@@ -13,7 +13,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const DetectText = () => {
+export default function ImageToQuiz() {
   const genAI = new GoogleGenerativeAI(
     "AIzaSyALCba9aabUcsQ0xz_qJ4ziGaM67-o3BNs"
   );
@@ -27,7 +27,6 @@ const DetectText = () => {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
-        aspect: [4, 3],
         quality: 1,
       });
 
@@ -44,7 +43,6 @@ const DetectText = () => {
       let result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
-
         quality: 1,
         cameraType: "back",
       });
@@ -96,8 +94,22 @@ const DetectText = () => {
     // For text-only input, use the gemini-pro model
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-    const prompt =
-      "Generate a 5 multiple choice questions from the given excerpt such that it is a combination of simple and thought-provoking questions";
+    const prompt = `Generate 6 thought provoking multiple choice questions from the given excerpt. 
+    Let the output be in JSON format in the following structure:
+      {
+      "output": [
+      {
+      "question": ...,
+      "options": [],
+      "answer": index of options
+      },
+      {
+      "question": ...,
+      "options": [],
+      "answer": index of options
+      },...
+      ]
+      }`;
 
     const result = await model.generateContent([textOutput, prompt]);
     const response = await result.response;
@@ -123,24 +135,29 @@ const DetectText = () => {
       <TouchableOpacity onPress={camImage} style={styles.button}>
         <Text style={styles.text}>Choose an Image from Camera</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={analyzeImage} style={styles.button}>
-        <Text style={styles.text}>Analyze</Text>
-      </TouchableOpacity>
 
-      <TouchableOpacity
-        disabled={loading} // Disable when loading is true
-        onPress={generateQuiz}
-        style={styles.button}
-      >
-        <Text style={styles.text}>Generate Quiz</Text>
-      </TouchableOpacity>
+      {imageUri && (
+        <TouchableOpacity onPress={analyzeImage} style={styles.button}>
+          <Text style={styles.text}>Analyze</Text>
+        </TouchableOpacity>
+      )}
+
+      {imageUri && (
+        <TouchableOpacity
+          disabled={loading} // Disable when loading is true
+          onPress={generateQuiz}
+          style={styles.button}
+        >
+          <Text style={styles.text}>Generate Quiz</Text>
+        </TouchableOpacity>
+      )}
+
       {loading && (
         <ActivityIndicator size="medium" color="#0000ff" /> // Activity indicator or custom loading text
       )}
     </View>
   );
-};
-export default DetectText;
+}
 
 const styles = StyleSheet.create({
   container: {
