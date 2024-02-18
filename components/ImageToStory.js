@@ -18,10 +18,11 @@ export default function ImageToStory() {
   const genAI = new GoogleGenerativeAI(
     "AIzaSyALCba9aabUcsQ0xz_qJ4ziGaM67-o3BNs"
   );
-  const [loading, setLoading] = useState(false);
 
   const [imageUri, setImageUri] = useState(null);
   const [textOutput, setOutput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [questComplete, setQuestComplete] = useState(false);
 
   const pickImage = async () => {
     try {
@@ -92,8 +93,6 @@ export default function ImageToStory() {
       const text = response.text();
       //console.log(text);
 
-      setLoading(false);
-
       let startIndex = text.indexOf("{");
       let endIndex = text.lastIndexOf("}");
       if (startIndex !== -1 && endIndex !== -1) {
@@ -104,6 +103,9 @@ export default function ImageToStory() {
         console.log("No JSON object found within curly braces");
         setOutput(text);
       }
+      setQuestComplete(true);
+
+      setLoading(false);
     } catch (error) {
       console.error("Error Analyzing Image: ", error);
       alert("Error generating description from gemini");
@@ -112,50 +114,61 @@ export default function ImageToStory() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cloud Vision Test</Text>
+      <ScrollView>
+        {!questComplete && (
+          <>
+            <Text style={styles.title}>Cloud Vision Test</Text>
+            <TouchableOpacity onPress={pickImage} style={styles.button}>
+              <Text style={styles.text}>Choose an Image from gallery</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={camImage} style={styles.button}>
+              <Text style={styles.text}>Choose an Image from Camera</Text>
+            </TouchableOpacity>
+          </>
+        )}
+        {imageUri && (
+          <Image
+            source={{ uri: imageUri }}
+            style={{ width: Dimensions.get("window").width - 30, height: 300 }}
+            resizeMode="contain"
+          />
+        )}
 
-      {imageUri && (
-        <Image
-          source={{ uri: imageUri }}
-          style={{ width: Dimensions.get("window").width - 30, height: 300 }}
-          resizeMode="contain"
-        />
-      )}
-      <TouchableOpacity onPress={pickImage} style={styles.button}>
-        <Text style={styles.text}>Choose an Image from gallery</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={camImage} style={styles.button}>
-        <Text style={styles.text}>Choose an Image from Camera</Text>
-      </TouchableOpacity>
+        {imageUri && (
+          <TouchableOpacity
+            disabled={loading} // Disable when loading is true
+            onPress={generateDescription}
+            style={styles.button}
+          >
+            <Text style={styles.text}>Generate Description</Text>
+          </TouchableOpacity>
+        )}
 
-      {imageUri && (
-        <TouchableOpacity
-          disabled={loading} // Disable when loading is true
-          onPress={generateDescription}
-          style={styles.button}
-        >
-          <Text style={styles.text}>Generate Description</Text>
-        </TouchableOpacity>
-      )}
+        {loading ? (
+          <ActivityIndicator size="medium" color="#0000ff" /> // Activity indicator or custom loading text
+        ) : (
+          <View>
+            {typeof textOutput === "string" ? (
+              <Text>{textOutput}</Text>
+            ) : (
+              <View>
+                <Text>ItemName: {textOutput?.ItemName}</Text>
+                <Text>Materials: {textOutput?.Materials}</Text>
+                <Text>Manufacturing: {textOutput?.Manufacturing}</Text>
+                <Text>Assembly: {textOutput?.Assembly}</Text>
+                <Text>Distribution: {textOutput?.Distribution}</Text>
+                <Text>Usage: {textOutput?.Usage}</Text>
+              </View>
+            )}
+          </View>
+        )}
 
-      {loading ? (
-        <ActivityIndicator size="medium" color="#0000ff" /> // Activity indicator or custom loading text
-      ) : (
-        <ScrollView>
-          {typeof textOutput === "string" ? (
-            <Text>{textOutput}</Text>
-          ) : (
-            <View>
-              <Text>ItemName: {textOutput?.ItemName}</Text>
-              <Text>Materials: {textOutput?.Materials}</Text>
-              <Text>Manufacturing: {textOutput?.Manufacturing}</Text>
-              <Text>Assembly: {textOutput?.Assembly}</Text>
-              <Text>Distribution: {textOutput?.Distribution}</Text>
-              <Text>Usage: {textOutput?.Usage}</Text>
-            </View>
-          )}
-        </ScrollView>
-      )}
+        {questComplete && (
+          <TouchableOpacity>
+            <Text style={styles.text}>Submit quest and earn points!</Text>
+          </TouchableOpacity>
+        )}
+      </ScrollView>
     </View>
   );
 }

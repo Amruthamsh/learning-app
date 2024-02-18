@@ -6,12 +6,14 @@ import {
   StyleSheet,
   Dimensions,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+import { useNavigation } from "@react-navigation/native";
 
 export default function ImageToQuiz() {
   const genAI = new GoogleGenerativeAI(
@@ -21,6 +23,9 @@ export default function ImageToQuiz() {
 
   const [imageUri, setImageUri] = useState(null);
   const [textOutput, setOutput] = useState("");
+  const [JSONOutput, setJSONOutput] = useState(42);
+
+  const navigation = useNavigation();
 
   const pickImage = async () => {
     try {
@@ -90,71 +95,93 @@ export default function ImageToQuiz() {
   };
 
   const generateQuiz = async () => {
-    setLoading(true);
-    // For text-only input, use the gemini-pro model
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    analyzeImage();
 
-    const prompt = `Generate 6 thought provoking multiple choice questions from the given excerpt. 
-    Let the output be in JSON format in the following structure:
-      {
-      "output": [
-      {
-      "question": ...,
-      "options": [],
-      "answer": index of options
-      },
-      {
-      "question": ...,
-      "options": [],
-      "answer": index of options
-      },...
-      ]
-      }`;
+    try {
+      setLoading(true);
+      // For text-only input, use the gemini-pro model
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-    const result = await model.generateContent([textOutput, prompt]);
-    const response = await result.response;
-    const text = response.text();
-    console.log(text);
-    setLoading(false);
+      const prompt = `Generate 6 thought provoking multiple choice questions from the given excerpt. 
+      Let the output be in JSON format in the following structure:
+        {
+        "output": [
+        {
+        "question": ...,
+        "options": [],
+        "answer": index of options
+        },
+        {
+        "question": ...,
+        "options": [],
+        "answer": index of options
+        }
+        ]
+        }`;
+
+      const result = await model.generateContent([textOutput, prompt]);
+      const response = await result.response;
+      const text = response.text();
+
+      let startIndex = text.indexOf("{");
+      let endIndex = text.lastIndexOf("}");
+      if (startIndex !== -1 && endIndex !== -1) {
+        let jsonString = text.substring(startIndex, endIndex + 1);
+        console.log(jsonString);
+        setJSONOutput(JSON.parse(jsonString));
+      } else {
+        console.log("No JSON object found within curly braces");
+        setOutput(text);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.error("Error creating quiz: ", error);
+      alert("Error generating Quiz from gemini");
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cloud Vision Test</Text>
+      <ScrollView>
+        <Text style={styles.title}>Cloud Vision Test</Text>
 
-      {imageUri && (
-        <Image
-          source={{ uri: imageUri }}
-          style={{ width: Dimensions.get("window").width - 30, height: 300 }}
-          resizeMode="contain"
-        />
-      )}
-      <TouchableOpacity onPress={pickImage} style={styles.button}>
-        <Text style={styles.text}>Choose an Image from gallery</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={camImage} style={styles.button}>
-        <Text style={styles.text}>Choose an Image from Camera</Text>
-      </TouchableOpacity>
-
-      {imageUri && (
-        <TouchableOpacity onPress={analyzeImage} style={styles.button}>
-          <Text style={styles.text}>Analyze</Text>
+        {imageUri && (
+          <Image
+            source={{ uri: imageUri }}
+            style={{ width: Dimensions.get("window").width - 30, height: 300 }}
+            resizeMode="contain"
+          />
+        )}
+        <TouchableOpacity onPress={pickImage} style={styles.button}>
+          <Text style={styles.text}>Choose an Image from gallery</Text>
         </TouchableOpacity>
-      )}
-
-      {imageUri && (
-        <TouchableOpacity
-          disabled={loading} // Disable when loading is true
-          onPress={generateQuiz}
-          style={styles.button}
-        >
-          <Text style={styles.text}>Generate Quiz</Text>
+        <TouchableOpacity onPress={camImage} style={styles.button}>
+          <Text style={styles.text}>Choose an Image from Camera</Text>
         </TouchableOpacity>
-      )}
 
-      {loading && (
-        <ActivityIndicator size="medium" color="#0000ff" /> // Activity indicator or custom loading text
-      )}
+        {imageUri && (
+          <TouchableOpacity
+            disabled={loading} // Disable when loading is true
+            onPress={generateQuiz}
+            style={styles.button}
+          >
+            <Text style={styles.text}>Generate Quiz</Text>
+          </TouchableOpacity>
+        )}
+
+        {loading && (
+          <ActivityIndicator size="medium" color="#0000ff" /> // Activity indicator or custom loading text
+        )}
+
+        {JSONOutput && (
+          <TouchableOpacity
+            onPress={() => navigation.navigate("QuizScreen", { JSONOutput })}
+          >
+            <Text>Start Quiz!</Text>
+          </TouchableOpacity>
+        )}
+      </ScrollView>
     </View>
   );
 }

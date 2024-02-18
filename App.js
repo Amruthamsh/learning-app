@@ -7,6 +7,7 @@ import LoadingScreen from "./screens/LoadingScreen";
 import Login from "./screens/LoginScreen";
 import CreateProfile from "./screens/CreateProfile";
 import ReadingAdventures from "./screens/ReadingAdventures";
+import QuizScreen from "./screens/QuizScreen";
 import SupplyChainStory from "./screens/SupplyChainStory";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
@@ -28,6 +29,11 @@ function InsideLayout() {
       <InsideStack.Screen
         name="SupplyChainStory"
         component={SupplyChainStory}
+      />
+      <InsideStack.Screen
+        name="QuizScreen"
+        component={QuizScreen}
+        options={{ headerShown: false }}
       />
     </InsideStack.Navigator>
   );

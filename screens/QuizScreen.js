@@ -1,0 +1,212 @@
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import { StyleSheet } from "react-native";
+import { useState } from "react";
+
+export default function QuizScreen({}) {
+  const questions = {
+    output: [
+      {
+        question:
+          "According to the excerpt, what is the primary purpose of art?",
+        options: [
+          "To provide an escape from reality",
+          "To provoke thought and challenge perspectives",
+          "To celebrate beauty and harmony",
+          "To document historical events",
+        ],
+        answer: 1,
+      },
+      {
+        question: "The author suggests that art can impact society by:",
+        options: [
+          "Promoting empathy and understanding",
+          "Challenging social norms and injustice",
+          "Providing a voice to the marginalized",
+          "All of the above",
+        ],
+        answer: 3,
+      },
+      {
+        question:
+          "Which of the following is NOT a characteristic of transformative art?",
+        options: [
+          "It challenges societal structures",
+          "It prompts personal growth",
+          "It is focused on beauty alone",
+          "It sparks dialogue and reflection",
+        ],
+        answer: 2,
+      },
+      {
+        question: "The author argues that art is essential because:",
+        options: [
+          "It enhances our cognitive abilities",
+          "It connects us to our emotions and experiences",
+          "It fosters creativity and imagination",
+          "All of the above",
+        ],
+        answer: 3,
+      },
+      {
+        question:
+          "What does the excerpt imply about the relationship between art and technology?",
+        options: [
+          "Technology has largely replaced art",
+          "Technology can be a powerful tool for artistic expression",
+          "Technology is irrelevant to the true purpose of art",
+          "Art is inherently incompatible with technology",
+        ],
+        answer: 1,
+      },
+      {
+        question:
+          "Which of the following is a key theme explored in the excerpt?",
+        options: [
+          "The transformative power of art",
+          "The importance of artistic freedom",
+          "The role of art in preserving cultural heritage",
+          "The decline of art in modern society",
+        ],
+        answer: 0,
+      },
+    ],
+  };
+
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const currentQuestion = questions.output[currentQuestionIndex];
+
+  const [selectedOptions, setSelectedOptions] = useState(
+    Array(questions.output.length).fill(null)
+  );
+
+  const handleNextQuestion = () => {
+    // Move to the next question
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+  };
+
+  const handlePreviousQuestion = () => {
+    // Move to the previous question
+    setCurrentQuestionIndex(currentQuestionIndex - 1);
+  };
+
+  const handleOptionSelect = (optionIndex) => {
+    const newSelectedOptions = [...selectedOptions];
+    newSelectedOptions[currentQuestionIndex] = optionIndex;
+    setSelectedOptions(newSelectedOptions);
+  };
+
+  const calculateScore = () => {
+    let score = 0;
+    selectedOptions.forEach((selectedOption, index) => {
+      if (selectedOption === questions.output[index].answer) {
+        score++;
+      }
+    });
+    return score;
+  };
+
+  const handleSubmit = () => {
+    const score = calculateScore();
+    Alert.alert(
+      "Quiz Result",
+      `Your score is ${score}/${questions.output.length}`,
+      [
+        { text: "Retry", onPress: () => console.log("Retry") },
+        { text: "Finish", onPress: () => console.log("Finish") },
+      ]
+    );
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1, padding: 20 }}>
+      <Text style={{ fontSize: 30, marginVertical: 20 }}>Quiz</Text>
+      <Text style={{ fontSize: 18, marginBottom: 10 }}>
+        {currentQuestionIndex + 1}. {currentQuestion.question}
+      </Text>
+      {currentQuestion.options.map((option, optionIndex) => (
+        <TouchableOpacity
+          key={optionIndex}
+          onPress={() => handleOptionSelect(optionIndex)}
+          style={{
+            backgroundColor:
+              selectedOptions[currentQuestionIndex] === optionIndex
+                ? "#6369D1"
+                : "white",
+            padding: 10,
+            marginTop: 5,
+          }}
+        >
+          <Text
+            style={{
+              color:
+                selectedOptions[currentQuestionIndex] === optionIndex
+                  ? "white"
+                  : "black",
+              fontSize: 15,
+            }}
+          >
+            {String.fromCharCode(97 + optionIndex)}. {option}
+          </Text>
+        </TouchableOpacity>
+      ))}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: 20,
+        }}
+      >
+        <TouchableOpacity
+          onPress={handlePreviousQuestion}
+          disabled={currentQuestionIndex === 0}
+        >
+          <Text style={{ color: currentQuestionIndex === 0 ? "gray" : "blue" }}>
+            Previous
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleNextQuestion}
+          disabled={currentQuestionIndex === questions.output.length - 1}
+        >
+          <Text
+            style={{
+              color:
+                currentQuestionIndex === questions.output.length - 1
+                  ? "gray"
+                  : "blue",
+            }}
+          >
+            Next
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {selectedOptions.every((option) => option !== null) && (
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            margin: 20,
+          }}
+        >
+          <TouchableOpacity onPress={handleSubmit}>
+            <Text style={{ fontSize: 20 }}>Submit!</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </SafeAreaView>
+  );
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
