@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
@@ -55,40 +56,58 @@ export default function ImageToStory() {
   };
 
   const generateDescription = async () => {
-    setLoading(true);
-    // For text-only input, use the gemini-pro model
-    const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+    try {
+      setLoading(true);
+      // For text-only input, use the gemini-pro model
+      const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
-    const prompt = `
-    Question: Detect the main item in the image. explain to a 15 year old the complexity of its supply chain process in detail by dividing the answer into 6 sections.
-    Let the output be in JSON format in the following structure:
+      const prompt = `
+    Question: Detect the main item in the image. explain the complexity of its supply chain process in detail.
+    OUTPUT:
     {
-        "RawMaterials": ...,
-        "Manufacturing": ...,
-        "Assembly": ...,
-        "Transport": ...,
-        "Distribution": ...
-        "Usage": ...
+        "ItemName": ...,
+        "Materials": explain the materials used,
+        "Manufacturing": explain the different manufacturing processes,
+        "Assembly": explain the assembly process,
+        "Transport": explain the transportation process,
+        "Distribution": explain the distribution process,
+        "Usage": explain usage
     }
     `;
 
-    const base64ImageData = await FileSystem.readAsStringAsync(imageUri, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
+      const base64ImageData = await FileSystem.readAsStringAsync(imageUri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
 
-    const image = {
-      inlineData: {
-        data: base64ImageData,
-        mimeType: "image/png",
-      },
-    };
+      const image = {
+        inlineData: {
+          data: base64ImageData,
+          mimeType: "image/png",
+        },
+      };
 
-    const result = await model.generateContent([prompt, image]);
+      const result = await model.generateContent([prompt, image]);
 
-    const response = await result.response;
-    const text = response.text();
-    console.log(text);
-    setLoading(false);
+      const response = await result.response;
+      const text = response.text();
+      //console.log(text);
+
+      setLoading(false);
+
+      let startIndex = text.indexOf("{");
+      let endIndex = text.lastIndexOf("}");
+      if (startIndex !== -1 && endIndex !== -1) {
+        let jsonString = text.substring(startIndex, endIndex + 1);
+        console.log(jsonString);
+        setOutput(JSON.parse(jsonString));
+      } else {
+        console.log("No JSON object found within curly braces");
+        setOutput(text);
+      }
+    } catch (error) {
+      console.error("Error Analyzing Image: ", error);
+      alert("Error generating description from gemini");
+    }
   };
 
   return (
@@ -119,8 +138,23 @@ export default function ImageToStory() {
         </TouchableOpacity>
       )}
 
-      {loading && (
+      {loading ? (
         <ActivityIndicator size="medium" color="#0000ff" /> // Activity indicator or custom loading text
+      ) : (
+        <ScrollView>
+          {typeof textOutput === "string" ? (
+            <Text>{textOutput}</Text>
+          ) : (
+            <View>
+              <Text>ItemName: {textOutput?.ItemName}</Text>
+              <Text>Materials: {textOutput?.Materials}</Text>
+              <Text>Manufacturing: {textOutput?.Manufacturing}</Text>
+              <Text>Assembly: {textOutput?.Assembly}</Text>
+              <Text>Distribution: {textOutput?.Distribution}</Text>
+              <Text>Usage: {textOutput?.Usage}</Text>
+            </View>
+          )}
+        </ScrollView>
       )}
     </View>
   );
