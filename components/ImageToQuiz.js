@@ -23,7 +23,6 @@ export default function ImageToQuiz() {
 
   const [imageUri, setImageUri] = useState(null);
   const [textOutput, setOutput] = useState("");
-  const [JSONOutput, setJSONOutput] = useState(42);
 
   const navigation = useNavigation();
 
@@ -61,6 +60,7 @@ export default function ImageToQuiz() {
   };
 
   const analyzeImage = async () => {
+    setLoading(true);
     try {
       if (!imageUri) {
         alert("Please select an image!");
@@ -92,17 +92,16 @@ export default function ImageToQuiz() {
       console.error("Error Analyzing Image: ", error);
       alert("Error analyzing image, please try again later");
     }
+    setLoading(false);
   };
 
   const generateQuiz = async () => {
-    analyzeImage();
-
     try {
       setLoading(true);
       // For text-only input, use the gemini-pro model
       const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-      const prompt = `Generate 6 thought provoking multiple choice questions from the given excerpt. 
+      const prompt = `Generate 5 to 10 thought provoking multiple choice questions from the given excerpt. 
       Let the output be in JSON format in the following structure:
         {
         "output": [
@@ -127,8 +126,7 @@ export default function ImageToQuiz() {
       let endIndex = text.lastIndexOf("}");
       if (startIndex !== -1 && endIndex !== -1) {
         let jsonString = text.substring(startIndex, endIndex + 1);
-        console.log(jsonString);
-        setJSONOutput(JSON.parse(jsonString));
+        navigation.navigate("QuizScreen", { jsonString });
       } else {
         console.log("No JSON object found within curly braces");
         setOutput(text);
@@ -163,6 +161,16 @@ export default function ImageToQuiz() {
         {imageUri && (
           <TouchableOpacity
             disabled={loading} // Disable when loading is true
+            onPress={analyzeImage}
+            style={styles.button}
+          >
+            <Text style={styles.text}>Analyze</Text>
+          </TouchableOpacity>
+        )}
+
+        {textOutput && (
+          <TouchableOpacity
+            disabled={loading} // Disable when loading is true
             onPress={generateQuiz}
             style={styles.button}
           >
@@ -172,14 +180,6 @@ export default function ImageToQuiz() {
 
         {loading && (
           <ActivityIndicator size="medium" color="#0000ff" /> // Activity indicator or custom loading text
-        )}
-
-        {JSONOutput && (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("QuizScreen", { JSONOutput })}
-          >
-            <Text>Start Quiz!</Text>
-          </TouchableOpacity>
         )}
       </ScrollView>
     </View>

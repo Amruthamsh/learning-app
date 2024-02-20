@@ -6,9 +6,13 @@ import {
   Alert,
 } from "react-native";
 import { StyleSheet } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function QuizScreen({}) {
+export default function QuizScreen({ route, navigation }) {
+  const { jsonString } = route.params;
+  const questions = JSON.parse(jsonString);
+  /*
+  ---------FOR TESTING--------
   const questions = {
     output: [
       {
@@ -77,6 +81,7 @@ export default function QuizScreen({}) {
       },
     ],
   };
+*/
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const currentQuestion = questions.output[currentQuestionIndex];
@@ -111,14 +116,24 @@ export default function QuizScreen({}) {
     return score;
   };
 
+  const retryQuiz = () => {
+    console.log("Retry");
+    setSelectedOptions(Array(questions.output.length).fill(null));
+    setCurrentQuestionIndex(0);
+  };
+
+  const finishQuiz = () => {
+    console.log("Finish");
+  };
+
   const handleSubmit = () => {
     const score = calculateScore();
     Alert.alert(
       "Quiz Result",
       `Your score is ${score}/${questions.output.length}`,
       [
-        { text: "Retry", onPress: () => console.log("Retry") },
-        { text: "Finish", onPress: () => console.log("Finish") },
+        { text: "Retry", onPress: retryQuiz },
+        { text: "Finish", onPress: finishQuiz },
       ]
     );
   };

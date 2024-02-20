@@ -33,7 +33,10 @@ function InsideLayout() {
       <InsideStack.Screen
         name="QuizScreen"
         component={QuizScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
       />
     </InsideStack.Navigator>
   );
