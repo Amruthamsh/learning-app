@@ -13,7 +13,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../FirebaseConfig";
 
-const backgroundImage = require("../assets/back.png"); 
+const backgroundImage = require("../assets/back (3).png");
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover", 
+    resizeMode: "cover",
   },
   contentContainer: {
     marginHorizontal: 20,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 24,
     marginBottom: 16,
-    color: "#000000", 
+    color: "#000000",
   },
   input: {
     marginVertical: 8,
@@ -114,7 +114,31 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 4,
     flex: 1,
-    opacity: 0.8, 
+    opacity: 0.8,
+  },
+  loginButton: {
+    backgroundColor: "#007BFF",
+  },
+  createProfileButton: {
+    backgroundColor: "#28a745",
+  },
+  buttonText: {
+    color: "#fff",
+  },
+  buttonSpace: {
+    marginLeft: 8,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    marginTop: 8,
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 8,
+    borderRadius: 4,
+    flex: 1,
+    opacity: 0.8,
   },
   loginButton: {
     backgroundColor: "#007BFF",

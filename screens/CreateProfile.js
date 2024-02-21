@@ -14,9 +14,9 @@ import { FIREBASE_AUTH } from "../FirebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 
-const backgroundImage = require("../assets/back.png"); // Update the path
+const backgroundImage = require("../assets/back (3).png"); // Update the path
 
-export default function CreateProfile({}) {
+export default function CreateProfile({ }) {
   const [name, setName] = useState("");
   const [age, setAge] = useState(null);
   const [email, setEmail] = useState("");
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 28,
     marginBottom: 16,
-    color: "#000000", 
+    color: "#000000",
   },
   input: {
     marginVertical: 4,
