@@ -2,6 +2,15 @@
   "expo": {
     "name": "learning-app",
     "slug": "learning-app",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Camera roll permission",
+          "cameraPermission": "Camera permission"
+        }
+      ]
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,7 +24,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets."
+      }
     },
     "android": {
       "adaptiveIcon": {
