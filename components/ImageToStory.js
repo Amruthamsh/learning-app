@@ -75,7 +75,8 @@ export default function ImageToStory() {
         "Assembly": explain the assembly process,
         "Transport": explain the transportation process,
         "Distribution": explain the distribution process,
-        "Usage": explain usage
+        "Usage": explain usage,
+        "Dispose": explain how the item must be disposed off
     }
     `;
 
@@ -167,7 +168,7 @@ export default function ImageToStory() {
                 </Text>
                 <View style={styles.descriptionCard}>
                   <Image
-                    source={require("../assets/supply-chain/mats.png")}
+                    source={require("../assets/supply-chain/mats (2).png")}
                     style={styles.descriptionImage}
                   />
                   <Text style={styles.descriptionText}>
@@ -210,6 +211,15 @@ export default function ImageToStory() {
                   />
                   <Text style={styles.descriptionText}>
                     {textOutput?.Usage}
+                  </Text>
+                </View>
+                <View style={styles.descriptionCard}>
+                  <Image
+                    source={require("../assets/supply-chain/dispose.png")}
+                    style={styles.descriptionImage}
+                  />
+                  <Text style={styles.descriptionText}>
+                    {textOutput?.Dispose}
                   </Text>
                 </View>
               </View>
@@ -261,6 +271,7 @@ const styles = StyleSheet.create({
     height: 80,
     marginRight: 10,
     flexWrap: "wrap",
+    resizeMode: "contain"
   },
   descriptionCard: {
     display: "flex",
