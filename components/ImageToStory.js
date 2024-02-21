@@ -29,8 +29,9 @@ export default function ImageToStory() {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
-        quality: 1,
+        quality: 0.6,
       });
+
       if (!result.canceled) {
         setImageUri(result.assets[0].uri);
       }
@@ -44,7 +45,7 @@ export default function ImageToStory() {
       let result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
-        quality: 1,
+        quality: 0.6,
         cameraType: "back",
       });
 
@@ -115,7 +116,7 @@ export default function ImageToStory() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        {!questComplete && (
+        {!questComplete && !imageUri && (
           <>
             <Text style={styles.title}>Cloud Vision Test</Text>
             <TouchableOpacity onPress={pickImage} style={styles.button}>
@@ -134,7 +135,7 @@ export default function ImageToStory() {
           />
         )}
 
-        {imageUri && (
+        {imageUri && !questComplete && (
           <TouchableOpacity
             disabled={loading} // Disable when loading is true
             onPress={generateDescription}
@@ -165,7 +166,7 @@ export default function ImageToStory() {
 
         {questComplete && (
           <TouchableOpacity>
-            <Text style={styles.text}>Submit quest and earn points!</Text>
+            <Text style={styles.text}>Finish quest and earn points!</Text>
           </TouchableOpacity>
         )}
       </ScrollView>
@@ -177,6 +178,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    margin: 15,
   },
   title: {
     fontSize: 30,

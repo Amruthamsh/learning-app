@@ -31,7 +31,7 @@ export default function ImageToQuiz() {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
-        quality: 1,
+        quality: 0.6,
       });
 
       if (!result.canceled) {
@@ -47,7 +47,7 @@ export default function ImageToQuiz() {
       let result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
-        quality: 1,
+        quality: 0.6,
         cameraType: "back",
       });
 
