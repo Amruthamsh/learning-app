@@ -16,7 +16,7 @@ import { getDatabase, ref, set } from "firebase/database";
 
 const backgroundImage = require("../assets/back (3).png"); // Update the path
 
-export default function CreateProfile({ }) {
+export default function CreateProfile({}) {
   const [name, setName] = useState("");
   const [age, setAge] = useState(null);
   const [email, setEmail] = useState("");
@@ -50,6 +50,7 @@ export default function CreateProfile({ }) {
     set(ref(db, "users/" + response.user.uid), {
       name,
       age,
+      points: 0,
     });
   };
 

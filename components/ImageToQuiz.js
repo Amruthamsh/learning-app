@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Dimensions,
   ActivityIndicator,
+  Platform,
+  StatusBar,
   ScrollView,
 } from "react-native";
 import React, { useState } from "react";
@@ -141,9 +143,8 @@ export default function ImageToQuiz() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Reading Adventures</Text>
       <ScrollView>
-        <Text style={styles.title}>Cloud Vision Test</Text>
-
         {imageUri && (
           <Image
             source={{ uri: imageUri }}
@@ -189,20 +190,27 @@ export default function ImageToQuiz() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: 20,
     alignItems: "center",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
+    color: "brown",
   },
   button: {
-    backgroundColor: "#CCCCCC",
+    marginHorizontal: 30,
+    backgroundColor: "white",
+    borderRadius: 10,
     padding: 10,
-    marginBottom: 10,
-    marginTop: 20,
+    margin: 5,
   },
   text: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold",
+    textAlign: "center",
   },
 });
