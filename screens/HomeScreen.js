@@ -69,8 +69,18 @@ export default function HomeScreen() {
       resizeMode="repeat"
     >
       <SafeAreaView style={styles.container}>
+        <Text
+          style={{
+            textAlign: "center",
+            margin: 20,
+            fontSize: 30,
+            fontWeight: "bold",
+          }}
+        >
+          Questify
+        </Text>
         <View style={styles.header}>
-          <Text style={styles.greetingText}>👋 Hello {userData?.name}</Text>
+          <Text style={styles.greetingText}>👋 Hello {userData?.name}!</Text>
           <TouchableOpacity onPress={toggleProfileModal}>
             <Image
               source={require("../assets/girl_w_pony.png")}
@@ -94,11 +104,11 @@ export default function HomeScreen() {
             />
           </View>
         </View>
+        <View>
+          <Text style={styles.badgesEarnedHeading}>Badges Earned</Text>
+        </View>
         <ScrollView style={styles.badgesSection} vertical={true}>
           <View style={styles.badgesContainer}>
-            <View style={styles.badgesEarnedContainer}>
-              <Text style={styles.badgesEarnedHeading}>Badges Earned</Text>
-            </View>
             {[...Array(numRows)].map((_, rowIndex) => (
               <View key={rowIndex} style={styles.badgesEarnedRow}>
                 {badgesEarnedData
@@ -133,7 +143,7 @@ export default function HomeScreen() {
 
           <View style={styles.modalContent}>
             <TouchableOpacity onPress={() => console.log("Badges earned")}>
-              <Text>Badges Earned</Text>
+              <Text>Select Avatar</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleLogout}>
               <Text>Logout</Text>
@@ -170,8 +180,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 30,
-    paddingRight: 16,
-    marginTop: 30,
   },
   greetingText: {
     fontSize: 24,
@@ -179,8 +187,8 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   profileIcon: {
-    width: 50,
-    height: 50,
+    width: 45,
+    height: 45,
     borderRadius: 25,
     borderWidth: 2, // Add border width
     borderColor: "black",
@@ -193,11 +201,11 @@ const styles = StyleSheet.create({
   questBox: {
     backgroundColor: "rgba(43, 88, 110, 1)",
     borderRadius: 10,
-    padding: 40,
+    padding: 25,
+    paddingBottom: 40,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 0,
     borderWidth: 2,
   },
   questTextContainer: {
@@ -211,19 +219,20 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   startButton: {
+    borderColor: "white",
+    borderWidth: 2,
     backgroundColor: "#747bdb",
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 5,
+    borderRadius: 7,
     marginTop: 40,
-    marginLeft: -200,
+    marginLeft: -250,
     alignSelf: "flex-end",
     marginBottom: -10,
   },
   startButtonText: {
     color: "#f7f7f7",
     fontWeight: "bold",
-
   },
   questImage: {
     width: 120,
@@ -234,23 +243,14 @@ const styles = StyleSheet.create({
   badgesSection: {
     flexDirection: "column",
     marginBottom: 20,
-    marginLeft: Platform.OS === "ios" ? 16 : 0,
-    marginRight: Platform.OS === "ios" ? 16 : 0,
-    marginLeft: 40,
-  },
-  badgesEarnedContainer: {
-
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: 80,
+    marginHorizontal: Platform.OS === "ios" ? 16 : 0,
   },
   badgesEarnedHeading: {
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: "bold",
-    marginRight: 8,
-    marginBottom: 30,
-    marginTop: 30,
-    marginLeft: 20,
+    marginBottom: 10,
+    marginTop: 10,
+    textAlign: "center",
   },
   badgeBadge: {
     marginRight: 22,
@@ -271,17 +271,18 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    justifyContent: "flex-end",
+
+    justifyContent: "space-between",
   },
   modalContent: {
     backgroundColor: "white",
-    padding: 40,
-    borderRadius: 0, // Set borderRadius to 0 for sharp corners
+    padding: 20,
+    borderRadius: 15, // Set borderRadius to 0 for sharp corners
     elevation: 5,
     position: "absolute",
-    top: 130.5,
-    right: 30,
-    transform: [{ translateY: 45 }, { translateX: -5 }],
+    top: 120,
+    right: 11,
+    transform: [{ translateY: 0 }, { translateX: -5 }],
     // Add border width
     // Add border color
   },

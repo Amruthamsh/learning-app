@@ -4,6 +4,8 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  Platform,
+  StatusBar,
   Dimensions,
   ActivityIndicator,
   ScrollView,
@@ -65,7 +67,7 @@ export default function ImageToStory() {
 
       const prompt = `
     Question: Detect the main item in the image. explain the complexity of its supply chain process in detail.
-    OUTPUT:
+    Give the OUTPUT in JSON format as shown below:
     {
         "ItemName": ...,
         "Materials": explain the materials used,
@@ -115,10 +117,17 @@ export default function ImageToStory() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Supply Chain Story</Text>
       <ScrollView>
-        {!questComplete && !imageUri && (
+        {imageUri && (
+          <Image
+            source={{ uri: imageUri }}
+            style={{ width: Dimensions.get("window").width - 30, height: 300 }}
+            resizeMode="contain"
+          />
+        )}
+        {!questComplete && !questComplete && (
           <>
-            <Text style={styles.title}>Cloud Vision Test</Text>
             <TouchableOpacity onPress={pickImage} style={styles.button}>
               <Text style={styles.text}>Choose an Image from gallery</Text>
             </TouchableOpacity>
@@ -126,13 +135,6 @@ export default function ImageToStory() {
               <Text style={styles.text}>Choose an Image from Camera</Text>
             </TouchableOpacity>
           </>
-        )}
-        {imageUri && (
-          <Image
-            source={{ uri: imageUri }}
-            style={{ width: Dimensions.get("window").width - 30, height: 300 }}
-            resizeMode="contain"
-          />
         )}
 
         {imageUri && !questComplete && (
@@ -150,15 +152,66 @@ export default function ImageToStory() {
         ) : (
           <View>
             {typeof textOutput === "string" ? (
-              <Text>{textOutput}</Text>
+              <Text style={styles.description}>{textOutput}</Text>
             ) : (
               <View>
-                <Text>ItemName: {textOutput?.ItemName}</Text>
-                <Text>Materials: {textOutput?.Materials}</Text>
-                <Text>Manufacturing: {textOutput?.Manufacturing}</Text>
-                <Text>Assembly: {textOutput?.Assembly}</Text>
-                <Text>Distribution: {textOutput?.Distribution}</Text>
-                <Text>Usage: {textOutput?.Usage}</Text>
+                <Text
+                  style={{
+                    fontSize: 25,
+                    textAlign: "center",
+                    margin: 8,
+                    marginTop: 15,
+                  }}
+                >
+                  {textOutput?.ItemName}
+                </Text>
+                <View style={styles.descriptionCard}>
+                  <Image
+                    source={require("../assets/supply-chain/mats.png")}
+                    style={styles.descriptionImage}
+                  />
+                  <Text style={styles.descriptionText}>
+                    {textOutput?.Materials}
+                  </Text>
+                </View>
+
+                <View style={styles.descriptionCard}>
+                  <Image
+                    source={require("../assets/supply-chain/manu.png")}
+                    style={styles.descriptionImage}
+                  />
+                  <Text style={styles.descriptionText}>
+                    {textOutput?.Manufacturing}
+                  </Text>
+                </View>
+
+                <View style={styles.descriptionCard}>
+                  <Image
+                    source={require("../assets/supply-chain/assemble.png")}
+                    style={styles.descriptionImage}
+                  />
+                  <Text style={styles.descriptionText}>
+                    {textOutput?.Assembly}
+                  </Text>
+                </View>
+                <View style={styles.descriptionCard}>
+                  <Image
+                    source={require("../assets/supply-chain/dist.png")}
+                    style={styles.descriptionImage}
+                  />
+                  <Text style={styles.descriptionText}>
+                    {textOutput?.Distribution}
+                  </Text>
+                </View>
+                <View style={styles.descriptionCard}>
+                  <Image
+                    source={require("../assets/supply-chain/usage.png")}
+                    style={styles.descriptionImage}
+                  />
+                  <Text style={styles.descriptionText}>
+                    {textOutput?.Usage}
+                  </Text>
+                </View>
               </View>
             )}
           </View>
@@ -177,21 +230,45 @@ export default function ImageToStory() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: 20,
     alignItems: "center",
-    margin: 15,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
+    color: "brown",
   },
   button: {
-    backgroundColor: "#CCCCCC",
+    marginHorizontal: 30,
+    backgroundColor: "white",
+    borderRadius: 10,
     padding: 10,
-    marginBottom: 10,
-    marginTop: 20,
+    margin: 5,
   },
   text: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold",
+    textAlign: "center",
+  },
+  description: {
+    margin: 10,
+  },
+  descriptionImage: {
+    width: 80,
+    height: 80,
+    marginRight: 10,
+    flexWrap: "wrap",
+  },
+  descriptionCard: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    marginVertical: 10,
+  },
+  descriptionText: {
+    flex: 1,
   },
 });

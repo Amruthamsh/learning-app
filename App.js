@@ -19,16 +19,30 @@ const InsideStack = createNativeStackNavigator();
 function InsideLayout() {
   return (
     <InsideStack.Navigator>
-      <InsideStack.Screen name="Home" component={HomeScreen} />
-      <InsideStack.Screen name="Quests" component={AllQuests} />
-      <InsideStack.Screen name="QuestDetails" component={QuestDetails} />
+      <InsideStack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+      <InsideStack.Screen
+        name="Quests"
+        component={AllQuests}
+        options={{ headerShown: false }}
+      />
+      <InsideStack.Screen
+        name="QuestDetails"
+        component={QuestDetails}
+        options={{ headerShown: false }}
+      />
       <InsideStack.Screen
         name="ReadingAdventures"
         component={ReadingAdventures}
+        options={{ headerShown: false }}
       />
       <InsideStack.Screen
         name="SupplyChainStory"
         component={SupplyChainStory}
+        options={{ headerShown: false }}
       />
       <InsideStack.Screen
         name="QuizScreen"
@@ -45,8 +59,16 @@ function InsideLayout() {
 function RegistrationLayout() {
   return (
     <InsideStack.Navigator>
-      <InsideStack.Screen name="Login" component={Login} />
-      <InsideStack.Screen name="CreateProfile" component={CreateProfile} />
+      <InsideStack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
+      <InsideStack.Screen
+        name="CreateProfile"
+        component={CreateProfile}
+        options={{ headerShown: false }}
+      />
     </InsideStack.Navigator>
   );
 }

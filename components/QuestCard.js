@@ -15,10 +15,17 @@ export default function QuestCard({
   return (
     <View style={styles.card}>
       <View>
-        <Text>{name}</Text>
+        <Text style={{ fontSize: 20 }}>{name}</Text>
         <Text>{type}</Text>
       </View>
-
+      <Text>
+        {objectives.map((objective, index) => (
+          <Text key={index}>
+            {index + 1}. {objective}
+            {"\n"}
+          </Text>
+        ))}
+      </Text>
       <Image
         style={styles.image}
         source={image}

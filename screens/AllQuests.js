@@ -5,6 +5,8 @@ import {
   Platform,
   StatusBar,
   ScrollView,
+  ImageBackground,
+  View,
 } from "react-native";
 import QuestCard from "../components/QuestCard";
 
@@ -28,7 +30,6 @@ export default function AllQuests() {
     difficulty: "medium",
     objectives: [
       "Read a book that you have lying around",
-      "Name the book",
       "Take picture of your favorite section/excerpt",
       "Complete quiz on that",
     ],
@@ -92,20 +93,42 @@ export default function AllQuests() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>Completed Quests: 5/25</Text>
-      <ScrollView>
-        <QuestCard {...ReadingAdventures} />
-        <QuestCard {...SupplyChainStory} />
-      </ScrollView>
-    </SafeAreaView>
+    <ImageBackground
+      source={require("../assets/back (3).png")} // Change the path accordingly
+      style={styles.backgroundImage}
+      resizeMode="repeat"
+    >
+      <SafeAreaView style={styles.container}>
+        <View style={{ margin: 16 }}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: 25,
+              color: "brown",
+              marginVertical: 10,
+            }}
+          >
+            Continue your journey...
+          </Text>
+          <Text style={{ fontSize: 16 }}>Completed Quests: 5/25</Text>
+        </View>
+        <ScrollView>
+          <QuestCard {...SupplyChainStory} />
+          <QuestCard {...ReadingAdventures} />
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover", // or "stretch" for different cover options
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });

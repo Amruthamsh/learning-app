@@ -36,7 +36,10 @@ export default function LoginScreen({ navigation }) {
   return (
     <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
       <View style={styles.container}>
-        <KeyboardAvoidingView behavior="padding" style={styles.contentContainer}>
+        <KeyboardAvoidingView
+          behavior="padding"
+          style={styles.contentContainer}
+        >
           <Text style={styles.heading}>Login</Text>
           <TextInput
             value={email}
@@ -89,6 +92,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     marginHorizontal: 20,
+    marginBottom: 40,
   },
   heading: {
     fontSize: 24,
@@ -138,7 +142,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 4,
     flex: 1,
-    opacity: 0.8,
+    opacity: 1,
   },
   loginButton: {
     backgroundColor: "#007BFF",
@@ -147,7 +151,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#28a745",
   },
   buttonText: {
-    color: "#fff",
+    color: "white",
   },
   buttonSpace: {
     marginLeft: 8,
