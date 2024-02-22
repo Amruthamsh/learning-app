@@ -36,7 +36,17 @@ export default function AllQuests() {
     points: 100, //for every new book
     screen: "ReadingAdventures",
   };
-
+  const KnowYourNutrients = {
+    name: "Know Your Nutrients",
+    image: require("../assets/library.png"),
+    difficulty: "easy",
+    objectives: [
+      "Take a picture of a food item",
+      "Learn all about its Nutrients!",
+    ],
+    points: 100, //for every new book
+    screen: "KnowYourNutrients",
+  };
   const LanguageExplorer = {
     name: "Language Explorer",
     image: require("../assets/retro-cam.jpg"),
@@ -115,6 +125,7 @@ export default function AllQuests() {
         <ScrollView>
           <QuestCard {...SupplyChainStory} />
           <QuestCard {...ReadingAdventures} />
+          <QuestCard {...KnowYourNutrients} />
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>

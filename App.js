@@ -12,6 +12,7 @@ import SupplyChainStory from "./screens/SupplyChainStory";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { FIREBASE_AUTH } from "./FirebaseConfig";
+import KnowYourNutrients from "./screens/KnowYourNutrients";
 
 const Stack = createNativeStackNavigator();
 const InsideStack = createNativeStackNavigator();
@@ -50,6 +51,13 @@ function InsideLayout() {
         options={{
           headerShown: false,
           gestureEnabled: false,
+        }}
+      />
+      <InsideStack.Screen
+        name="KnowYourNutrients"
+        component={KnowYourNutrients}
+        options={{
+          headerShown: false,
         }}
       />
     </InsideStack.Navigator>
