@@ -2,7 +2,7 @@ import {
   View,
   Text,
   SafeAreaView,
-  TouchableOpacity,
+  TouchableOpacity,Platform,
   Alert,
 } from "react-native";
 import { StyleSheet } from "react-native";
@@ -139,7 +139,7 @@ export default function QuizScreen({ route, navigation }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 20 }}>
+    <SafeAreaView style={{ flex: 1, padding: 20, marginHorizontal: Platform.OS === "ios" ? 16 : 0 }}>
       <Text style={{ fontSize: 30, marginVertical: 20 }}>Quiz</Text>
       <Text style={{ fontSize: 18, marginBottom: 10 }}>
         {currentQuestionIndex + 1}. {currentQuestion.question}
