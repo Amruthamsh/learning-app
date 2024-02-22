@@ -85,6 +85,7 @@ export default function QuizScreen({ route, navigation }) {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const currentQuestion = questions.output[currentQuestionIndex];
+  const [hasFinishedQuiz,setFinishedQuiz] = useState(false);
 
   const [selectedOptions, setSelectedOptions] = useState(
     Array(questions.output.length).fill(null)
@@ -122,8 +123,9 @@ export default function QuizScreen({ route, navigation }) {
     setCurrentQuestionIndex(0);
   };
 
-  const finishQuiz = () => {
+  const finishQuiz = async () => {
     console.log("Finish");
+    setFinishedQuiz(true);
   };
 
   const handleSubmit = () => {
@@ -147,13 +149,11 @@ export default function QuizScreen({ route, navigation }) {
       {currentQuestion.options.map((option, optionIndex) => (
         <TouchableOpacity
           key={optionIndex}
+          disabled={hasFinishedQuiz}
           onPress={() => handleOptionSelect(optionIndex)}
           style={{
-            backgroundColor:
-              selectedOptions[currentQuestionIndex] === optionIndex
-                ? "#6369D1"
-                : "white",
-            padding: 10,
+            backgroundColor: hasFinishedQuiz? (optionIndex === currentQuestion.answer ? "lightgreen" : selectedOptions[currentQuestionIndex] === optionIndex ? "red":"white"): selectedOptions[currentQuestionIndex] === optionIndex ? "#6369D1":"white"
+            ,padding: 10,
             marginTop: 5,
           }}
         >
@@ -202,7 +202,7 @@ export default function QuizScreen({ route, navigation }) {
         </TouchableOpacity>
       </View>
 
-      {selectedOptions.every((option) => option !== null) && (
+      {selectedOptions.every((option) => option !== null) && !hasFinishedQuiz && (
         <View
           style={{
             flex: 1,
@@ -215,6 +215,18 @@ export default function QuizScreen({ route, navigation }) {
           </TouchableOpacity>
         </View>
       )}
+
+      {hasFinishedQuiz && (<View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            margin: 20,
+          }}
+        >
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+            <Text style={{ fontSize: 20 }}>Return to Quests!</Text>
+          </TouchableOpacity>
+        </View>)}
     </SafeAreaView>
   );
 }
