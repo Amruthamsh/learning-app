@@ -130,7 +130,7 @@ export default function HomeScreen() {
           {/* Add your circular widgets for lessons here */}
         </ScrollView>
         <Modal
-          animationType="slide"
+          animationType="fade"
           transparent={true}
           visible={isProfileModalVisible}
           onRequestClose={toggleProfileModal}
@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 30,
+    marginHorizontal: Platform.OS === "ios" ? 15 : 0,
   },
   greetingText: {
     fontSize: 24,
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 7,
     marginTop: 40,
-    marginLeft: -250,
+    marginLeft: Platform.OS === "ios" ? -250 : -210,
     alignSelf: "flex-end",
     marginBottom: -10,
   },

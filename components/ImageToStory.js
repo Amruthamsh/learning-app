@@ -117,14 +117,14 @@ export default function ImageToStory() {
 
       setLoading(false);
     } catch (error) {
-      console.error("Error Analyzing Image: ", error);
+      console.log("Error Analyzing Image , try again ",);
       alert("Error generating description from gemini");
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Supply Chain Story</Text>
+      <Text style={styles.title}>Source to Shelf</Text>
       <ScrollView>
         {imageUri && (
           <Image
