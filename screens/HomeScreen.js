@@ -48,15 +48,15 @@ export default function HomeScreen() {
 
   // Dummy data for badges earned
   const badgesEarnedData = [
-    { image: require("../assets/badges/nonfic (1).png"), text: "Badge 1" },
-    { image: require("../assets/badges/scifi.png"), text: "Badge 2" },
-    { image: require("../assets/badges/mys.png"), text: "Badge 3" },
-    { image: require("../assets/badges/fantasy.png"), text: "Badge 4" },
-    { image: require("../assets/badges/history.png"), text: "Badge 5" },
-    { image: require("../assets/badges/bio.png"), text: "Badge 6" },
-    { image: require("../assets/badges/selfhelp.png"), text: "Badge 7" },
-    { image: require("../assets/badges/question_mark.png"), text: "Badge 8" },
-    { image: require("../assets/badges/question_mark.png"), text: "Badge 9" },
+    { image: require("../assets/badges/nonfic (1).png"), text: "3rd Mar" },
+    { image: require("../assets/badges/scifi.png"), text: "6th Mar" },
+    { image: require("../assets/badges/mys.png"), text: "31st Jun" },
+    { image: require("../assets/badges/fantasy.png"), text: "1st Jan" },
+    { image: require("../assets/badges/history.png"), text: "4th Apr" },
+    { image: require("../assets/badges/bio.png"), text: "7th Feb" },
+    { image: require("../assets/badges/selfhelp.png"), text: "12th Feb" },
+    { image: require("../assets/badges/question_mark.png"), text: "" },
+    { image: require("../assets/badges/question_mark.png"), text: "" },
   ];
 
   // Calculate the number of rows

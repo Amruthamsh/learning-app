@@ -158,7 +158,7 @@ export default function ImageToQuiz() {
       // For text-only input, use the gemini-pro model
       const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-      const prompt = `Generate 5 to 10 multiple choice quiz from the book ${bookName} such that questions are thought-provoking. 
+      const prompt = `Generate a multiple choice quiz from the novel ${bookName} such that it contains 10 thought-provoking questions. 
       Let the output be in JSON format in the following structure:
         {
         "output": [
