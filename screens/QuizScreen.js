@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Platform,
   Alert,
+  ImageBackground,
 } from "react-native";
 import { StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
@@ -142,83 +143,104 @@ export default function QuizScreen({ route, navigation }) {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        padding: 20,
-        marginHorizontal: Platform.OS === "ios" ? 16 : 0,
-      }}
+    <ImageBackground
+      source={require("../assets/back-light.png")} // Change the path accordingly
+      style={styles.backgroundImage}
+      resizeMode="repeat"
     >
-      <Text style={{ fontSize: 30, marginVertical: 20 }}>Quiz</Text>
-      <Text style={{ fontSize: 18, marginBottom: 10 }}>
-        {currentQuestionIndex + 1}. {currentQuestion.question}
-      </Text>
-      {currentQuestion.options.map((option, optionIndex) => (
-        <TouchableOpacity
-          key={optionIndex}
-          disabled={hasFinishedQuiz}
-          onPress={() => handleOptionSelect(optionIndex)}
-          style={{
-            backgroundColor: hasFinishedQuiz
-              ? optionIndex === currentQuestion.answer
-                ? "lightgreen"
-                : selectedOptions[currentQuestionIndex] === optionIndex
-                ? "red"
-                : "white"
-              : selectedOptions[currentQuestionIndex] === optionIndex
-              ? "#6369D1"
-              : "white",
-            padding: 10,
-            marginTop: 5,
-          }}
-        >
-          <Text
-            style={{
-              color:
-                selectedOptions[currentQuestionIndex] === optionIndex
-                  ? "white"
-                  : "black",
-              fontSize: 15,
-            }}
-          >
-            {String.fromCharCode(97 + optionIndex)}. {option}
-          </Text>
-        </TouchableOpacity>
-      ))}
-      <View
+      <SafeAreaView
         style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: 20,
+          flex: 1,
+          padding: 20,
+          marginHorizontal: Platform.OS === "ios" ? 16 : 0,
         }}
       >
-        <TouchableOpacity
-          onPress={handlePreviousQuestion}
-          disabled={currentQuestionIndex === 0}
-        >
-          <Text style={{ color: currentQuestionIndex === 0 ? "gray" : "blue" }}>
-            Previous
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleNextQuestion}
-          disabled={currentQuestionIndex === questions.output.length - 1}
-        >
-          <Text
+        <Text style={{ fontSize: 30, marginVertical: 20 }}>Quiz</Text>
+        <Text style={{ fontSize: 18, marginBottom: 10 }}>
+          {currentQuestionIndex + 1}. {currentQuestion.question}
+        </Text>
+        {currentQuestion.options.map((option, optionIndex) => (
+          <TouchableOpacity
+            key={optionIndex}
+            disabled={hasFinishedQuiz}
+            onPress={() => handleOptionSelect(optionIndex)}
             style={{
-              color:
-                currentQuestionIndex === questions.output.length - 1
-                  ? "gray"
-                  : "blue",
+              backgroundColor: hasFinishedQuiz
+                ? optionIndex === currentQuestion.answer
+                  ? "lightgreen"
+                  : selectedOptions[currentQuestionIndex] === optionIndex
+                  ? "red"
+                  : "white"
+                : selectedOptions[currentQuestionIndex] === optionIndex
+                ? "#6369D1"
+                : "white",
+              padding: 10,
+              marginTop: 5,
             }}
           >
-            Next
-          </Text>
-        </TouchableOpacity>
-      </View>
+            <Text
+              style={{
+                color:
+                  selectedOptions[currentQuestionIndex] === optionIndex
+                    ? "white"
+                    : "black",
+                fontSize: 15,
+              }}
+            >
+              {String.fromCharCode(97 + optionIndex)}. {option}
+            </Text>
+          </TouchableOpacity>
+        ))}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 20,
+          }}
+        >
+          <TouchableOpacity
+            onPress={handlePreviousQuestion}
+            disabled={currentQuestionIndex === 0}
+          >
+            <Text
+              style={{ color: currentQuestionIndex === 0 ? "gray" : "blue" }}
+            >
+              Previous
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleNextQuestion}
+            disabled={currentQuestionIndex === questions.output.length - 1}
+          >
+            <Text
+              style={{
+                color:
+                  currentQuestionIndex === questions.output.length - 1
+                    ? "gray"
+                    : "blue",
+              }}
+            >
+              Next
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-      {selectedOptions.every((option) => option !== null) &&
-        !hasFinishedQuiz && (
+        {selectedOptions.every((option) => option !== null) &&
+          !hasFinishedQuiz && (
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                margin: 20,
+              }}
+            >
+              <TouchableOpacity onPress={handleSubmit}>
+                <Text style={{ fontSize: 20 }}>Submit!</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+
+        {hasFinishedQuiz && (
           <View
             style={{
               flex: 1,
@@ -226,32 +248,24 @@ export default function QuizScreen({ route, navigation }) {
               margin: 20,
             }}
           >
-            <TouchableOpacity onPress={handleSubmit}>
-              <Text style={{ fontSize: 20 }}>Submit!</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Quests")}>
+              <Text style={{ fontSize: 20 }}>Return to quests!</Text>
             </TouchableOpacity>
           </View>
         )}
-
-      {hasFinishedQuiz && (
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            margin: 20,
-          }}
-        >
-          <TouchableOpacity onPress={() => navigation.navigate("Quests")}>
-            <Text style={{ fontSize: 20 }}>Return to quests!</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    </SafeAreaView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover", // or "stretch" for different cover options
     justifyContent: "center",
   },
 });

@@ -176,7 +176,7 @@ export default function ImageToStory() {
                 >
                   {textOutput?.ItemName}
                 </Text>
-                <Text style={styles.text}>Career Opportunities</Text>
+                <Text style={styles.text}>Supply Chain</Text>
 
                 <View style={styles.descriptionCard}>
                   <Image
