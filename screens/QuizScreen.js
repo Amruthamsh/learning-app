@@ -144,7 +144,7 @@ export default function QuizScreen({ route, navigation }) {
 
   return (
     <ImageBackground
-      source={require("../assets/back-light.png")} // Change the path accordingly
+      source={require("../assets/back-light2.png")} // Change the path accordingly
       style={styles.backgroundImage}
       resizeMode="repeat"
     >
