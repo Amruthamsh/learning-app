@@ -89,10 +89,7 @@ export default function HomeScreen() {
             />
           </TouchableOpacity>
           <Text style={styles.greetingText}>Hello {userData?.name}!👋🏽</Text>
-          <TouchableOpacity
-            onPress={toggleProfileModal}
-            style={{ marginLeft: "auto" }}
-          >
+          <TouchableOpacity style={{ marginLeft: "auto" }}>
             <Image
               source={require("../assets/settings-icon.png")}
               style={{ width: 40, height: 40 }}
