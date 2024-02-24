@@ -44,7 +44,8 @@ export default function ImageToStory() {
 
   const camImage = async () => {
     try {
-      const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+      const permissionResult =
+        await ImagePicker.requestCameraPermissionsAsync();
 
       if (permissionResult.granted === false) {
         alert("You've refused to allow this appp to access your camera!");
@@ -82,7 +83,10 @@ export default function ImageToStory() {
         "Transport": explain the transportation process,
         "Distribution": explain the distribution process,
         "Usage": explain usage,
-        "Dispose": explain how the item must be disposed off
+        "Dispose": explain how the item must be disposed off,
+        "Career": {"career_name": unique career specific to this job or supply chain,"description": description of each career opportunities},
+        {"career_name": unique career specific to this job or supply chain,"description": description of each career opportunities},
+        {"career_name": unique career specific to this job or supply chain,"description": description of each career opportunities}
     }
     `;
 
@@ -117,7 +121,7 @@ export default function ImageToStory() {
 
       setLoading(false);
     } catch (error) {
-      console.log("Error Analyzing Image , try again ",);
+      console.log("Error Analyzing Image , try again ");
       alert("Error generating description from gemini");
     }
   };
@@ -172,6 +176,8 @@ export default function ImageToStory() {
                 >
                   {textOutput?.ItemName}
                 </Text>
+                <Text style={styles.text}>Career Opportunities</Text>
+
                 <View style={styles.descriptionCard}>
                   <Image
                     source={require("../assets/supply-chain/mats (2).png")}
@@ -228,6 +234,22 @@ export default function ImageToStory() {
                     {textOutput?.Dispose}
                   </Text>
                 </View>
+                <Text style={styles.text}>Career Opportunities</Text>
+                <View style={styles.descriptionCard}>
+                  <Image
+                    style={styles.descriptionImage}
+                    source={require("../assets/supply-chain/career-job.png")}
+                  />
+
+                  <Text style={styles.descriptionText}>
+                    {textOutput?.Career.map((career, index) => (
+                      <Text key={index}>
+                        {index + 1}. {career.career_name}: {career.description}
+                        {"\n"} {"\n"}
+                      </Text>
+                    ))}
+                  </Text>
+                </View>
               </View>
             )}
           </View>
@@ -277,7 +299,7 @@ const styles = StyleSheet.create({
     height: 80,
     marginRight: 10,
     flexWrap: "wrap",
-    resizeMode: "contain"
+    resizeMode: "contain",
   },
   descriptionCard: {
     display: "flex",

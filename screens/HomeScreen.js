@@ -9,6 +9,7 @@ import {
   ScrollView,
   Image,
   ImageBackground,
+  StatusBar,
 } from "react-native";
 import { FIREBASE_AUTH } from "../FirebaseConfig";
 import { getDatabase, ref, onValue } from "firebase/database";
@@ -69,16 +70,16 @@ export default function HomeScreen() {
       resizeMode="repeat"
     >
       <SafeAreaView style={styles.container}>
-        <Text
-          style={{
-            textAlign: "center",
-            margin: 20,
-            fontSize: 30,
-            fontWeight: "bold",
-          }}
-        >
-          Questify
-        </Text>
+        <View style={{ alignItems: "center" }}>
+          <Image
+            source={require("../assets/questify.png")}
+            style={{
+              margin: 10,
+              width: 170,
+              height: 60,
+            }}
+          />
+        </View>
         <View style={styles.header}>
           <Text style={styles.greetingText}>👋 Hello {userData?.name}!</Text>
           <TouchableOpacity onPress={toggleProfileModal}>
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: "transparent",
-
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     // Set to transparent if you want the background image to be visible
   },
   backgroundImage: {
