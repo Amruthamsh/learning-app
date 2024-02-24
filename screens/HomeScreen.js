@@ -81,11 +81,21 @@ export default function HomeScreen() {
           />
         </View>
         <View style={styles.header}>
-          <Text style={styles.greetingText}>👋 Hello {userData?.name}!</Text>
           <TouchableOpacity onPress={toggleProfileModal}>
             <Image
               source={require("../assets/girl_w_pony.png")}
               style={styles.profileIcon}
+              resizeMode="center"
+            />
+          </TouchableOpacity>
+          <Text style={styles.greetingText}>Hello {userData?.name}!👋🏽</Text>
+          <TouchableOpacity
+            onPress={toggleProfileModal}
+            style={{ marginLeft: "auto" }}
+          >
+            <Image
+              source={require("../assets/settings-icon.png")}
+              style={{ width: 40, height: 40 }}
               resizeMode="center"
             />
           </TouchableOpacity>
@@ -180,9 +190,10 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
+    gap: 10,
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 20,
     marginHorizontal: Platform.OS === "ios" ? 15 : 0,
   },
   greetingText: {
@@ -225,8 +236,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 7,
-    marginTop: 40,
-    marginRight: 49,
+    marginTop: 30,
+    marginRight: "auto",
   },
   startButtonText: {
     color: "#f7f7f7",
@@ -268,7 +279,6 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-
     justifyContent: "space-between",
   },
   modalContent: {
@@ -277,9 +287,9 @@ const styles = StyleSheet.create({
     borderRadius: 15, // Set borderRadius to 0 for sharp corners
     elevation: 5,
     position: "absolute",
-    top: 120,
-    right: 11,
-    transform: [{ translateY: 0 }, { translateX: -5 }],
+    top: 0,
+    rleft: 0,
+    transform: [{ translateY: 125 }, { translateX: 16 }],
     // Add border width
     // Add border color
   },
