@@ -124,8 +124,8 @@ export default function AllQuests() {
         </View>
         <ScrollView>
           <QuestCard {...SupplyChainStory} />
-          <QuestCard {...ReadingAdventures} />
           <QuestCard {...KnowYourNutrients} />
+          <QuestCard {...ReadingAdventures} />
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
