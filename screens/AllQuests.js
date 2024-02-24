@@ -38,7 +38,7 @@ export default function AllQuests() {
   };
   const KnowYourNutrients = {
     name: "Know Your Nutrients",
-    image: require("../assets/library.png"),
+    image: require("../assets/nutrients_card.png"),
     difficulty: "easy",
     objectives: [
       "Take a picture of a food item",
