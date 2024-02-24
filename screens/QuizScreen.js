@@ -2,7 +2,8 @@ import {
   View,
   Text,
   SafeAreaView,
-  TouchableOpacity,Platform,
+  TouchableOpacity,
+  Platform,
   Alert,
 } from "react-native";
 import { StyleSheet } from "react-native";
@@ -85,7 +86,7 @@ export default function QuizScreen({ route, navigation }) {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const currentQuestion = questions.output[currentQuestionIndex];
-  const [hasFinishedQuiz,setFinishedQuiz] = useState(false);
+  const [hasFinishedQuiz, setFinishedQuiz] = useState(false);
 
   const [selectedOptions, setSelectedOptions] = useState(
     Array(questions.output.length).fill(null)
@@ -141,7 +142,13 @@ export default function QuizScreen({ route, navigation }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 20, marginHorizontal: Platform.OS === "ios" ? 16 : 0 }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        padding: 20,
+        marginHorizontal: Platform.OS === "ios" ? 16 : 0,
+      }}
+    >
       <Text style={{ fontSize: 30, marginVertical: 20 }}>Quiz</Text>
       <Text style={{ fontSize: 18, marginBottom: 10 }}>
         {currentQuestionIndex + 1}. {currentQuestion.question}
@@ -152,8 +159,16 @@ export default function QuizScreen({ route, navigation }) {
           disabled={hasFinishedQuiz}
           onPress={() => handleOptionSelect(optionIndex)}
           style={{
-            backgroundColor: hasFinishedQuiz? (optionIndex === currentQuestion.answer ? "lightgreen" : selectedOptions[currentQuestionIndex] === optionIndex ? "red":"white"): selectedOptions[currentQuestionIndex] === optionIndex ? "#6369D1":"white"
-            ,padding: 10,
+            backgroundColor: hasFinishedQuiz
+              ? optionIndex === currentQuestion.answer
+                ? "lightgreen"
+                : selectedOptions[currentQuestionIndex] === optionIndex
+                ? "red"
+                : "white"
+              : selectedOptions[currentQuestionIndex] === optionIndex
+              ? "#6369D1"
+              : "white",
+            padding: 10,
             marginTop: 5,
           }}
         >
@@ -202,7 +217,22 @@ export default function QuizScreen({ route, navigation }) {
         </TouchableOpacity>
       </View>
 
-      {selectedOptions.every((option) => option !== null) && !hasFinishedQuiz && (
+      {selectedOptions.every((option) => option !== null) &&
+        !hasFinishedQuiz && (
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              margin: 20,
+            }}
+          >
+            <TouchableOpacity onPress={handleSubmit}>
+              <Text style={{ fontSize: 20 }}>Submit!</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+      {hasFinishedQuiz && (
         <View
           style={{
             flex: 1,
@@ -210,23 +240,11 @@ export default function QuizScreen({ route, navigation }) {
             margin: 20,
           }}
         >
-          <TouchableOpacity onPress={handleSubmit}>
-            <Text style={{ fontSize: 20 }}>Submit!</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Quests")}>
+            <Text style={{ fontSize: 20 }}>Return to quests!</Text>
           </TouchableOpacity>
         </View>
       )}
-
-      {hasFinishedQuiz && (<View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            margin: 20,
-          }}
-        >
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-            <Text style={{ fontSize: 20 }}>Return to Quests!</Text>
-          </TouchableOpacity>
-        </View>)}
     </SafeAreaView>
   );
 }
