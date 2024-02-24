@@ -92,13 +92,15 @@ export default function HomeScreen() {
         </View>
         <View style={styles.questSection}>
           <View style={styles.questBox}>
-            <Text style={styles.questText}>Begin Your{"\n"}Quest</Text>
-            <TouchableOpacity
-              style={styles.startButton}
-              onPress={handleStartQuest}
-            >
-              <Text style={styles.startButtonText}>Start now</Text>
-            </TouchableOpacity>
+            <View style={styles.questTextContainer}>
+              <Text style={styles.questText}>Begin Your{"\n"}Quest</Text>
+              <TouchableOpacity
+                style={styles.startButton}
+                onPress={handleStartQuest}
+              >
+                <Text style={styles.startButtonText}>Start now</Text>
+              </TouchableOpacity>
+            </View>
             <Image
               source={require("../assets/logo_main.png")}
               style={styles.questImage}
@@ -197,8 +199,7 @@ const styles = StyleSheet.create({
   },
   questSection: {
     marginBottom: 20,
-    marginLeft: Platform.OS === "ios" ? 16 : 0,
-    marginRight: Platform.OS === "ios" ? 16 : 0,
+    marginHorizontal: Platform.OS === "ios" ? 16 : 0,
   },
   questBox: {
     backgroundColor: "rgba(43, 88, 110, 1)",
@@ -207,18 +208,15 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
     borderWidth: 2,
   },
   questTextContainer: {
     flex: 1,
-    marginRight: 10,
   },
   questText: {
     color: "white",
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 50,
   },
   startButton: {
     borderColor: "white",
@@ -228,9 +226,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 7,
     marginTop: 40,
-    marginLeft: Platform.OS === "ios" ? -250 : -210,
-    alignSelf: "flex-end",
-    marginBottom: -10,
+    marginRight: 72,
   },
   startButtonText: {
     color: "#f7f7f7",
@@ -240,7 +236,6 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 10,
-    marginLeft: -40,
   },
   badgesSection: {
     flexDirection: "column",
