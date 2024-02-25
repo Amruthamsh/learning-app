@@ -10,7 +10,7 @@ Install expo client in your system (ignore if already installed)
 
 Install Dependencies: Install both regular dependencies and development dependencies using npm. This includes packages required for running the project and additional packages used for development purposes:
 
-### `npm install`
+`npm install`
 
 ## Environment Variables
 
@@ -29,7 +29,7 @@ GEMINI_API_KEY = YOUR_API_KEY
 
 If Yarn was installed when the project was initialized, then dependencies will have been installed via Yarn, and you should probably use it to run these commands as well. Unlike dependency installation, command running syntax is identical for Yarn and NPM at the time of this writing.
 
-### `npm start`
+`npm start`
 
 Runs your app in development mode.
 
@@ -43,11 +43,11 @@ npm start --reset-cache
 yarn start --reset-cache
 ```
 
-#### `npm test`
+`npm test`
 
 Runs the [jest](https://github.com/facebook/jest) test runner on your tests.
 
-#### `npm run ios`
+`npm run ios`
 
 Like `npm start`, but also attempts to open your app in the iOS Simulator if you're on a Mac and have it installed.
 
