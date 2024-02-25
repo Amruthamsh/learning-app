@@ -12,7 +12,7 @@ Navigate to the Project Directory: Move into the directory of the cloned reposit
 
 `cd learning-app`
 
-## Dependencies
+## Setting up the Project Environment 
 
 Ensure you have Node.js and npm installed on your system before running the installation command. You can download and install them from the official Node.js website: https://nodejs.org. (ignore if already installed)
 
