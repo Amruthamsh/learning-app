@@ -15,11 +15,10 @@ import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+import { GEMINI_API_KEY } from "@env";
 
 export default function ImageToStory() {
-  const genAI = new GoogleGenerativeAI(
-    "AIzaSyALCba9aabUcsQ0xz_qJ4ziGaM67-o3BNs"
-  );
+  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
   const [imageUri, setImageUri] = useState(null);
   const [textOutput, setOutput] = useState("");

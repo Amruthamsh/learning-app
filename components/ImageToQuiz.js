@@ -18,11 +18,11 @@ import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 import { useNavigation } from "@react-navigation/native";
+import { GEMINI_API_KEY } from "@env";
+import { GOOGLE_VISION_API_KEY } from "@env";
 
 export default function ImageToQuiz() {
-  const genAI = new GoogleGenerativeAI(
-    "AIzaSyALCba9aabUcsQ0xz_qJ4ziGaM67-o3BNs"
-  );
+  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
   const [loading, setLoading] = useState(false);
 
   const [imageUri, setImageUri] = useState(null);
@@ -80,8 +80,7 @@ export default function ImageToQuiz() {
         return;
       }
 
-      const apiKey = "AIzaSyCBFfJzE6p4O0E3yJYpRCanbGC6LL8Z3L4";
-      const apiURL = `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`;
+      const apiURL = `https://vision.googleapis.com/v1/images:annotate?key=${GOOGLE_VISION_API_KEY}`;
 
       const base64ImageData = await FileSystem.readAsStringAsync(imageUri, {
         encoding: FileSystem.EncodingType.Base64,

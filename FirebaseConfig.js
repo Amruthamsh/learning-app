@@ -1,11 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import {
-  getAuth,
-  initializeAuth,
-  getReactNativePersistence,
-} from "firebase/auth"; // Use `initializeAuth` for RN
+import { initializeAuth, getReactNativePersistence } from "firebase/auth"; // Use `initializeAuth` for RN
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
 // TODO: Add SDKs for Firebase products that you want to use
