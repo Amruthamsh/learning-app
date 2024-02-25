@@ -22,7 +22,6 @@ import { GEMINI_API_KEY } from "@env";
 import { GOOGLE_VISION_API_KEY } from "@env";
 
 export default function ImageToQuiz() {
-  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
   const [loading, setLoading] = useState(false);
 
   const [imageUri, setImageUri] = useState(null);
@@ -31,6 +30,7 @@ export default function ImageToQuiz() {
   const [bookConfirmed, confirmBook] = useState(false);
 
   const navigation = useNavigation();
+  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
   const pickImage = async () => {
     try {

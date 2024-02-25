@@ -17,12 +17,11 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 import { GEMINI_API_KEY } from "@env";
 
 export default function ImageToNutrients() {
-  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-
   const [imageUri, setImageUri] = useState(null);
   const [textOutput, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
   const [questComplete, setQuestComplete] = useState(false);
+  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
   const pickImage = async () => {
     try {
