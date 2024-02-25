@@ -4,6 +4,18 @@ A novel mobile application designed to revolutionize children's learning experie
 
 ## Installation
 
+Clone the Repository: Start by cloning the repository to your local machine using the following command:
+
+`git clone https://github.com/Amruthamsh/learning-app.git`
+
+Navigate to the Project Directory: Move into the directory of the cloned repository:
+
+`cd learning-app`
+
+## Dependencies
+
+Ensure you have Node.js and npm installed on your system before running the installation command. You can download and install them from the official Node.js website: https://nodejs.org. (ignore if already installed)
+
 Install expo client in your system (ignore if already installed)
 
 `npm install -g expo-cli`
