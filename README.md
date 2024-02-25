@@ -10,7 +10,20 @@ Install expo client in your system (ignore if already installed)
 
 Install Dependencies: Install both regular dependencies and development dependencies using npm. This includes packages required for running the project and additional packages used for development purposes:
 
-`npm install`
+### `npm install`
+
+## Environment Variables
+
+Add .env file to the root directory of the project
+
+Content of .env file
+
+```
+# change the API_KEY with your api key
+
+GOOGLE_VISION_API_KEY = YOUR_API_KEY
+GEMINI_API_KEY = YOUR_API_KEY
+```
 
 ## Running the App
 
