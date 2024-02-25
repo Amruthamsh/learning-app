@@ -2,6 +2,16 @@
 
 A novel mobile application designed to revolutionize children's learning experiences by transforming education into engaging, real-world quests. The app addresses the challenge of disengagement and frustration often associated with traditional learning methods by incorporating interactive quests that encourage children to explore their surroundings while acquiring valuable knowledge. Through completing quests and earning badges, children are motivated to learn and track their progress, fostering a sense of achievement and excitement for discovery. This innovative approach aims to ignite children's natural curiosity and transform learning into an unforgettable adventure.
 
+## Installation
+
+Install expo client in your system (ignore if already installed)
+
+`npm install -g expo-cli`
+
+Install Dependencies: Install both regular dependencies and development dependencies using npm. This includes packages required for running the project and additional packages used for development purposes:
+
+`npm install`
+
 ## Running the App
 
 If Yarn was installed when the project was initialized, then dependencies will have been installed via Yarn, and you should probably use it to run these commands as well. Unlike dependency installation, command running syntax is identical for Yarn and NPM at the time of this writing.
