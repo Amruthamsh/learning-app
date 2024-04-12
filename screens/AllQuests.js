@@ -49,12 +49,9 @@ export default function AllQuests() {
   };
   const NewsScreen = {
     name: "Current Affairs",
-    image: require("../assets/nutrients_card.png"),
+    image: require("../assets/current_affairs.png"),
     difficulty: "easy",
-    objectives: [
-      "NewsNews",
-      "NewsNews",
-    ],
+    objectives: ["NewsNews", "NewsNews"],
     points: 100,
     screen: "NewsScreen",
   };
