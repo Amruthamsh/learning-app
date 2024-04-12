@@ -47,59 +47,16 @@ export default function AllQuests() {
     points: 100, //for every new book
     screen: "KnowYourNutrients",
   };
-  const LanguageExplorer = {
-    name: "Language Explorer",
-    image: require("../assets/retro-cam.jpg"),
-    difficulty: "medium",
+  const NewsScreen = {
+    name: "Current Affairs",
+    image: require("../assets/nutrients_card.png"),
+    difficulty: "easy",
     objectives: [
-      "Converse with a person who speaks a different language.",
-      "Identify and translate simple words or phrases using computer vision / speech to text.",
-      "Explore basic phrases from different languages.",
+      "NewsNews",
+      "NewsNews",
     ],
-    completion_status: false,
-    points_earned: 200,
-  };
-
-  const TimeMachine = {
-    name: "Time Machine",
-    image: require("../assets/retro-cam.jpg"),
-    difficulty: "medium",
-    objectives: [
-      "Track your location",
-      "Return a picture from decades ago",
-      "Go to that location and explore how the place has evolved",
-      "Compare pictures: Then and now",
-    ],
-    completion_status: false,
-    points_earned: 400,
-  };
-
-  const HistoricalLocation = {
-    name: "Time Machine",
-    image: require("../assets/retro-cam.jpg"),
-    type: "visit a place",
-    difficulty: "medium",
-    objectives: [
-      "Find book",
-      "Take Picture of the Introduction",
-      "Complete Quiz",
-    ],
-    completion_status: false,
-    points_earned: 0,
-  };
-
-  const DisabilityFriendlyLesson = {
-    name: "Disability Friendly Lesson",
-    image: require("../assets/retro-cam.jpg"),
-    type: "visit a place",
-    difficulty: "medium",
-    objectives: [
-      "Find book",
-      "Take Picture of the Introduction",
-      "Complete Quiz",
-    ],
-    completion_status: false,
-    points_earned: 0,
+    points: 100,
+    screen: "NewsScreen",
   };
 
   return (
@@ -126,6 +83,7 @@ export default function AllQuests() {
           <QuestCard {...SupplyChainStory} />
           <QuestCard {...KnowYourNutrients} />
           <QuestCard {...ReadingAdventures} />
+          <QuestCard {...NewsScreen} />
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
