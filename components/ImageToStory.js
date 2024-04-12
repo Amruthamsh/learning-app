@@ -16,13 +16,17 @@ import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 import { GEMINI_API_KEY } from "@env";
+import { earnBadge } from "./EarnBadge";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ImageToStory() {
   const [imageUri, setImageUri] = useState(null);
   const [textOutput, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
   const [questComplete, setQuestComplete] = useState(false);
-  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+  const navigation = useNavigation();
 
   const pickImage = async () => {
     try {
@@ -254,7 +258,9 @@ export default function ImageToStory() {
         )}
 
         {questComplete && (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => earnBadge("supply-chain", navigation)}
+          >
             <Text style={styles.text}>Finish quest and earn points!</Text>
           </TouchableOpacity>
         )}

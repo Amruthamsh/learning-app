@@ -9,10 +9,12 @@ import {
 } from "react-native";
 import { StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
+import { earnBadge } from "../components/EarnBadge";
 
 export default function QuizScreen({ route, navigation }) {
   const { jsonString } = route.params;
   const questions = JSON.parse(jsonString);
+  console.log(questions.genre);
   /*
   ---------FOR TESTING--------
   const questions = {
@@ -248,8 +250,12 @@ export default function QuizScreen({ route, navigation }) {
               margin: 20,
             }}
           >
-            <TouchableOpacity onPress={() => navigation.navigate("Quests")}>
-              <Text style={{ fontSize: 20 }}>Return to quests!</Text>
+            <TouchableOpacity
+              onPress={() => earnBadge(questions.genre, navigation)}
+            >
+              <Text style={{ fontSize: 20 }}>
+                Earn Badge and Return to quests!
+              </Text>
             </TouchableOpacity>
           </View>
         )}

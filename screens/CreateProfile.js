@@ -50,7 +50,7 @@ export default function CreateProfile({}) {
     set(ref(db, "users/" + response.user.uid), {
       name,
       age,
-      points: 0,
+      badges: 0,
     });
   };
 
