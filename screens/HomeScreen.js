@@ -15,6 +15,7 @@ import { FIREBASE_AUTH } from "../FirebaseConfig";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useNavigation } from "@react-navigation/native";
 import { Platform } from "react-native";
+import DisplayBadges from "../components/DisplayBadges";
 
 export default function HomeScreen() {
   const [userData, setUserData] = useState(null);
@@ -46,22 +47,6 @@ export default function HomeScreen() {
   const handleStartQuest = () => {
     navigation.navigate("Quests");
   };
-
-  // Dummy data for badges earned
-  const badgesEarnedData = [
-    { image: require("../assets/badges/nonfic (1).png"), text: "3rd Mar" },
-    { image: require("../assets/badges/scifi.png"), text: "6th Mar" },
-    { image: require("../assets/badges/mys.png"), text: "31st Jun" },
-    { image: require("../assets/badges/fantasy.png"), text: "1st Jan" },
-    { image: require("../assets/badges/history.png"), text: "4th Apr" },
-    { image: require("../assets/badges/bio.png"), text: "7th Feb" },
-    { image: require("../assets/badges/selfhelp.png"), text: "12th Feb" },
-    { image: require("../assets/badges/question_mark.png"), text: "" },
-    { image: require("../assets/badges/question_mark.png"), text: "" },
-  ];
-
-  // Calculate the number of rows
-  const numRows = Math.ceil(badgesEarnedData.length / 3);
 
   return (
     <ImageBackground
@@ -117,25 +102,8 @@ export default function HomeScreen() {
         <View>
           <Text style={styles.badgesEarnedHeading}>Badges Earned</Text>
         </View>
-        <ScrollView style={styles.badgesSection} vertical={true}>
-          <View style={styles.badgesContainer}>
-            {[...Array(numRows)].map((_, rowIndex) => (
-              <View key={rowIndex} style={styles.badgesEarnedRow}>
-                {badgesEarnedData
-                  .slice(rowIndex * 3, rowIndex * 3 + 3)
-                  .map((badge, index) => (
-                    <View key={index} style={styles.badgeBadge}>
-                      <Image
-                        source={badge.image}
-                        style={styles.circularBadgeImage}
-                      />
-                      <Text style={styles.badgeText}>{badge.text}</Text>
-                    </View>
-                  ))}
-              </View>
-            ))}
-          </View>
-        </ScrollView>
+        <DisplayBadges userData={userData} />
+
         <ScrollView style={styles.lessonsSection} horizontal={true}>
           {/* Add your circular widgets for lessons here */}
         </ScrollView>

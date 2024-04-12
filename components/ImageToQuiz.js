@@ -72,84 +72,6 @@ export default function ImageToQuiz() {
     }
   };
 
-  // const analyzeImage = async () => {
-  //   setLoading(true);
-  //   try {
-  //     if (!imageUri) {
-  //       alert("Please select an image!");
-  //       return;
-  //     }
-
-  //     const apiURL = `https://vision.googleapis.com/v1/images:annotate?key=${GOOGLE_VISION_API_KEY}`;
-
-  //     const base64ImageData = await FileSystem.readAsStringAsync(imageUri, {
-  //       encoding: FileSystem.EncodingType.Base64,
-  //     });
-
-  //     const requestData = {
-  //       requests: [
-  //         {
-  //           image: {
-  //             content: base64ImageData,
-  //           },
-  //           features: [{ type: "TEXT_DETECTION", maxResults: 5 }],
-  //         },
-  //       ],
-  //     };
-
-  //     const apiResponse = await axios.post(apiURL, requestData);
-  //     setOutput(apiResponse.data.responses[0].fullTextAnnotation.text);
-  //     console.log(textOutput);
-  //   } catch (error) {
-  //     console.error("Error Analyzing Image: ", error);
-  //     alert("Error analyzing image, please try again later");
-  //   }
-  //   setLoading(false);
-  // };
-
-  // const generateQuizFromImage = async () => {
-  //   try {
-  //     setLoading(true);
-  //     // For text-only input, use the gemini-pro model
-  //     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
-  //     const prompt = `Generate 5 to 10 thought provoking multiple choice questions from the given excerpt. 
-  //     Let the output be in JSON format in the following structure:
-  //       {
-  //       "output": [
-  //       {
-  //       "question": ...,
-  //       "options": [],
-  //       "answer": index of options
-  //       },
-  //       {
-  //       "question": ...,
-  //       "options": [],
-  //       "answer": index of options
-  //       }
-  //       ]
-  //       }`;
-
-  //     const result = await model.generateContent([textOutput, prompt]);
-  //     const response = result.response;
-  //     const text = response.text();
-
-  //     let startIndex = text.indexOf("{");
-  //     let endIndex = text.lastIndexOf("}");
-  //     if (startIndex !== -1 && endIndex !== -1) {
-  //       let jsonString = text.substring(startIndex, endIndex + 1);
-  //       navigation.navigate("QuizScreen", { jsonString });
-  //     } else {
-  //       console.log("No JSON object found within curly braces");
-  //       setOutput(text);
-  //     }
-
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error("Error creating quiz: ", error);
-  //     alert("Error generating Quiz from gemini");
-  //   }
-  // };
   const generateQuizFromImage = async () => {
     try {
       setLoading(true);
@@ -157,24 +79,23 @@ export default function ImageToQuiz() {
       const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
       const prompt = `
-    Question: Detect the main item in the image.Generate 5 to 10 thought provoking multiple choice questions from the given excerpt. 
+    Question: Detect the text in the image. Generate 5 to 10 thought provoking multiple choice questions from the given excerpt. 
          Let the output be in JSON format in the following structure:
-           {
-           "output": [
-           {
-           "question": ...,
-           "options": [],
-           "answer": index of options
-           },
-           {
-           "question": ...,
-           "options": [],
-           "answer": index of options
-           }
-           ]
-           }
-    `;
-
+         {
+          "genre": select one value in the array of genres ["biopic","fantasy","history","mystery", "non-fiction","science-fiction","self-help"] most relevant to the given book,
+        "output": [
+        {
+        "question": ...,
+        "options": [],
+        "answer": index of options
+        },
+        {
+        "question": ...,
+        "options": [],
+        "answer": index of options
+        }
+        ],
+        }`;
       const base64ImageData = await FileSystem.readAsStringAsync(imageUri, {
         encoding: FileSystem.EncodingType.Base64,
       });
@@ -190,7 +111,6 @@ export default function ImageToQuiz() {
 
       const response = await result.response;
       const text = response.text();
-      //console.log(text);
 
       let startIndex = text.indexOf("{");
       let endIndex = text.lastIndexOf("}");
@@ -209,6 +129,7 @@ export default function ImageToQuiz() {
       alert("Error generating description from gemini");
     }
   };
+
   const generateQuizFromBookName = async () => {
     try {
       setLoading(true);
@@ -218,6 +139,7 @@ export default function ImageToQuiz() {
       const prompt = `Generate a multiple choice quiz from the novel ${bookName} such that it contains 10 thought-provoking questions. 
       Let the output be in JSON format in the following structure:
         {
+          "genre": select one value in the array of genres ["biopic","fantasy","history","mystery", "non-fiction","science-fiction","self-help"] most relevant to the given book,
         "output": [
         {
         "question": ...,
@@ -229,14 +151,14 @@ export default function ImageToQuiz() {
         "options": [],
         "answer": index of options
         }
-        ]
+        ],
         }`;
-
-      console.log(prompt);
 
       const result = await model.generateContent([prompt]);
       const response = result.response;
       const text = response.text();
+
+      console.log(text);
 
       let startIndex = text.indexOf("{");
       let endIndex = text.lastIndexOf("}");
