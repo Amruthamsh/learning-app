@@ -14,14 +14,14 @@ import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-import { GEMINI_API_KEY } from "@env";
+//import { GEMINI_API_KEY } from "@env";
 
 export default function ImageToNutrients() {
   const [imageUri, setImageUri] = useState(null);
   const [textOutput, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
   const [questComplete, setQuestComplete] = useState(false);
-  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
   const pickImage = async () => {
     try {
