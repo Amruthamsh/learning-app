@@ -1,10 +1,7 @@
-import { useState } from "react";
 import { FIREBASE_AUTH } from "../FirebaseConfig";
 import {
-  child,
   getDatabase,
   ref,
-  set,
   update,
   onValue,
 } from "firebase/database";

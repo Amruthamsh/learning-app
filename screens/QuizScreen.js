@@ -8,7 +8,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { earnBadge } from "../components/EarnBadge";
 
 export default function QuizScreen({ route, navigation }) {
@@ -171,11 +171,11 @@ export default function QuizScreen({ route, navigation }) {
                 ? optionIndex === currentQuestion.answer
                   ? "lightgreen"
                   : selectedOptions[currentQuestionIndex] === optionIndex
-                  ? "red"
-                  : "white"
+                    ? "red"
+                    : "white"
                 : selectedOptions[currentQuestionIndex] === optionIndex
-                ? "#6369D1"
-                : "white",
+                  ? "#6369D1"
+                  : "white",
               padding: 10,
               marginTop: 5,
             }}

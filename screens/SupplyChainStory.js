@@ -1,8 +1,6 @@
 import {
   StyleSheet,
-  View,
   SafeAreaView,
-  Text,
   ImageBackground,
 } from "react-native";
 import ImageToStory from "../components/ImageToStory";

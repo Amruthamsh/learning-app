@@ -122,7 +122,7 @@ export default function ImageToNutrients() {
 
       setLoading(false);
     } catch (error) {
-      console.log("Error Analyzing Image , try again ");
+      console.log("Error Analyzing Image , try again:" + error);
       alert("Error generating description from gemini");
     }
   };

@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   NativeBaseProvider,
   FlatList,
-  ScrollView,
-  Divider,
   Image,
-  Spinner,
 } from "native-base";
 import { View, Text, ImageBackground, StyleSheet } from "react-native";
 import { newsServices } from "../components/CurrentAffairs";

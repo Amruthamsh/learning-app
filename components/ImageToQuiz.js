@@ -8,8 +8,6 @@ import {
   ActivityIndicator,
   Platform,
   StatusBar,
-  ScrollView,
-  KeyboardAvoidingView,
   TextInput,
 } from "react-native";
 import React, { useState } from "react";
@@ -19,7 +17,6 @@ import * as FileSystem from "expo-file-system";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 import { useNavigation } from "@react-navigation/native";
 import { GEMINI_API_KEY } from "@env";
-import { GOOGLE_VISION_API_KEY } from "@env";
 
 export default function ImageToQuiz() {
   const [loading, setLoading] = useState(false);
@@ -30,7 +27,7 @@ export default function ImageToQuiz() {
   const [bookConfirmed, confirmBook] = useState(false);
 
   const navigation = useNavigation();
-  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
   const pickImage = async () => {
     try {

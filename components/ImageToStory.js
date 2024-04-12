@@ -11,11 +11,9 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState } from "react";
-import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-import { GEMINI_API_KEY } from "@env";
 import { earnBadge } from "./EarnBadge";
 import { useNavigation } from "@react-navigation/native";
 
@@ -107,7 +105,6 @@ export default function ImageToStory() {
 
       const response = await result.response;
       const text = response.text();
-      //console.log(text);
 
       let startIndex = text.indexOf("{");
       let endIndex = text.lastIndexOf("}");
@@ -123,7 +120,7 @@ export default function ImageToStory() {
 
       setLoading(false);
     } catch (error) {
-      console.log("Error Analyzing Image , try again ");
+      console.log("Error Analyzing Image , try again:" + error);
       alert("Error generating description from gemini");
     }
   };

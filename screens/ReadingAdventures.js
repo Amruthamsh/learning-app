@@ -1,6 +1,5 @@
 import { StyleSheet, View, SafeAreaView, ImageBackground } from "react-native";
 import ImageToQuiz from "../components/ImageToQuiz";
-import { useState } from "react";
 
 export default function ReadingAdventures() {
   return (
