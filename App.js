@@ -9,6 +9,7 @@ import CreateProfile from "./screens/CreateProfile";
 import ReadingAdventures from "./screens/ReadingAdventures";
 import QuizScreen from "./screens/QuizScreen";
 import SupplyChainStory from "./screens/SupplyChainStory";
+import NewsScreen from "./screens/NewsScreen";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { FIREBASE_AUTH } from "./FirebaseConfig";
@@ -56,6 +57,13 @@ function InsideLayout() {
       <InsideStack.Screen
         name="KnowYourNutrients"
         component={KnowYourNutrients}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <InsideStack.Screen
+        name="NewsScreen"
+        component={NewsScreen}
         options={{
           headerShown: false,
         }}
