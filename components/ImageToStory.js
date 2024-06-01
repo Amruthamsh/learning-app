@@ -70,7 +70,7 @@ export default function ImageToStory() {
     try {
       setLoading(true);
       // For text-only input, use the gemini-pro model
-      const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
       const prompt = `
     Question: Detect the main item in the image. explain the complexity of its supply chain process in detail.
