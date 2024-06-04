@@ -36,8 +36,10 @@ Content of .env file
 ```
 # change the API_KEY with your api key
 
-GOOGLE_VISION_API_KEY = YOUR_API_KEY
-GEMINI_API_KEY = YOUR_API_KEY
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+NEWS_API_KEY=YOUR_NEWS_API_KEY
+NEWS_API_ENDPOINT="https://newsapi.org/v2/top-headlines"
+NEWS_API_COUNTRY="in"
 ```
 
 ## Running the App
