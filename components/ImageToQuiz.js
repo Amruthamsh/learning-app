@@ -72,8 +72,7 @@ export default function ImageToQuiz() {
   const generateQuizFromImage = async () => {
     try {
       setLoading(true);
-      // For text-only input, use the gemini-pro model
-      const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const prompt = `
     Question: Detect the text in the image. Generate 5 to 10 thought provoking multiple choice questions from the given excerpt. 
@@ -131,7 +130,9 @@ export default function ImageToQuiz() {
     try {
       setLoading(true);
       // For text-only input, use the gemini-pro model
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+      const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash",
+      });
 
       const prompt = `Generate a multiple choice quiz from the novel ${bookName} such that it contains 10 thought-provoking questions. 
       Let the output be in JSON format in the following structure:

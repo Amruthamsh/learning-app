@@ -73,7 +73,7 @@ export default function ImageToNutrients() {
     try {
       setLoading(true);
       // For text-only input, use the gemini-pro model
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const prompt = `
       Question: Detect the food item in the image. explain the various components of it in detail.
