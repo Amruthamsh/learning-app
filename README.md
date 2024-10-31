@@ -2,6 +2,8 @@
 
 Questify is built using React-Native for Android and iOS and Gemini AI. A novel mobile application designed to revolutionize children's learning experiences by transforming education into engaging, real-world quests. The app addresses the challenge of disengagement and frustration often associated with traditional learning methods by incorporating interactive quests that encourage children to explore their surroundings while acquiring valuable knowledge. Through completing quests and earning badges, children are motivated to learn and track their progress, fostering a sense of achievement and excitement for discovery. This innovative approach aims to ignite children's natural curiosity and transform learning into an unforgettable adventure.
 
+Demo Video: https://www.youtube.com/watch?v=Q1ML6OnbRsc&ab_channel=Arjun
+
 ## Installation
 
 Clone the Repository: Start by cloning the repository to your local machine using the following command:
